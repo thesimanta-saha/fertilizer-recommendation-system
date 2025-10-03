@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সার সুপারিশ ব্যবস্থা - iFarmer (Inspired)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-leaf"></i>
+                    <h1>iFarmer সার সুপারিশ</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> হোম</a></li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> সম্পর্কে</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> যোগাযোগ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <div class="page-title">
+            <h2>ফসলের সার সুপারিশ ব্যবস্থা</h2>
+            <p>উন্নত ফলনের জন্য সঠিক পরিমাণে সার ব্যবহার করুন</p>
+        </div>
+
+        <!-- Location Selection -->
+        <div class="form-section">
+            <h3><i class="fas fa-map-marker-alt"></i> অঞ্চল নির্বাচন করুন</h3>
+            <div class="input-group">
+                <label for="location-select">আপনার অঞ্চল</label>
+                <select id="location-select">
+                    <option value="">-- অঞ্চল নির্বাচন করুন --</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Field Selection -->
+        <div class="form-section" id="field-section" style="display: none;">
+            <h3><i class="fas fa-tractor"></i> জমি নং নির্বাচন করুন</h3>
+            <div class="input-group">
+                <label for="field-select">জমি নং</label>
+                <select id="field-select">
+                    <option value="">-- জমি নং নির্বাচন করুন --</option>
+                </select>
+            </div>
+            
+            <!-- Field Information -->
+            <div id="field-info" style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 6px; display: none;">
+                <h4 style="color: #2e7d32; margin-bottom: 10px;">জমির তথ্য</h4>
+                <div id="field-details"></div>
+            </div>
+        </div>
+
+        <!-- Land Details -->
+        <div class="form-section" id="details-section" style="display: none;">
+            <h3><i class="fas fa-info-circle"></i> জমির বিবরণ</h3>
+            <div class="input-group">
+                <label for="land-area">জমির পরিমাণ (শতাংশ)</label>
+                <input type="number" id="land-area" value="1" min="1">
+            </div>
+
+            <div class="input-group">
+                <label>মাটির টেস্ট রিপোর্ট আছে?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="soil-test" id="soil-test-yes" value="yes">
+                        <label for="soil-test-yes">হ্যাঁ</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="soil-test" id="soil-test-no" value="no" checked>
+                        <label for="soil-test-no">না</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soil Test Fields -->
+            <div id="soil-test-fields" style="display: none;">
+                <h4 style="color: #2e7d32; margin: 20px 0 15px;">মাটি পরীক্ষার মান</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
+                    <div class="input-group">
+                        <label for="phosphorus">ফসফরাস (মাইক্রোগ্রাম/গ্রাম)</label>
+                        <input type="number" id="phosphorus" step="0.01" value="20.00">
+                    </div>
+                    <div class="input-group">
+                        <label for="potassium">পটাশিয়াম (মিলিতুল্যাংক/১০০ গ্রাম)</label>
+                        <input type="number" id="potassium" step="0.01" value="0.15">
+                    </div>
+                    <div class="input-group">
+                        <label for="zinc">দস্তা (মাইক্রোগ্রাম/গ্রাম)</label>
+                        <input type="number" id="zinc" step="0.01" value="1.20">
+                    </div>
+                    <div class="input-group">
+                        <label for="nitrogen">নাইট্রোজেন (%)</label>
+                        <input type="number" id="nitrogen" step="0.01" value="0.10">
+                    </div>
+                    <div class="input-group">
+                        <label for="magnesium">ম্যাগনেসিয়াম (মিলিতুল্যাংক/১০০ গ্রাম)</label>
+                        <input type="number" id="magnesium" step="0.01" value="0.80">
+                    </div>
+                    <div class="input-group">
+                        <label for="sulfur">সালফার (মাইক্রোগ্রাম/গ্রাম)</label>
+                        <input type="number" id="sulfur" step="0.01" value="15.00">
+                    </div>
+                    <div class="input-group">
+                        <label for="boron">বোরন (মাইক্রোগ্রাম/গ্রাম)</label>
+                        <input type="number" id="boron" step="0.01" value="0.21">
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>ডিএপি ব্যবহার করবেন?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="use-dap" id="use-dap-yes" value="yes">
+                        <label for="use-dap-yes">হ্যাঁ</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="use-dap" id="use-dap-no" value="no" checked>
+                        <label for="use-dap-no">না</label>
+                    </div>
+                </div>
+            </div>
+
+            <button id="calculate-btn" style="margin-top: 20px;">
+                <i class="fas fa-calculator"></i> সুপারিশ দেখুন
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" style="display: none;">
+            <h3><i class="fas fa-clipboard-list"></i> সার সুপারিশ ফলাফল</h3>
+            <div id="recommendations"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>আমাদের সম্পর্কে</h4>
+                    <p>iFarmer (Inspired) বাংলাদেশের কৃষকদের জন্য একটি সম্পূর্ণ ডিজিটাল প্ল্যাটফর্ম, যেখানে কৃষকরা উন্নত চাষাবাদ পদ্ধতি এবং সার সুপারিশ সেবা পেতে পারেন।</p>
+                </div>
+                <div class="footer-section">
+                    <h4>দ্রুত লিংক</h4>
+                    <a href="#">হোম</a>
+                    <a href="#">সার সুপারিশ</a>
+                    <a href="#">কৃষি পরামর্শ</a>
+                    <a href="#">বাজার দর</a>
+                </div>
+                <div class="footer-section">
+                    <h4>যোগাযোগ</h4>
+                    <p><i class="fas fa-phone"></i> +৮৮০ XXXX-XXXXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@ifarmer.bd</p>
+                    <p><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© ২০২৫ iFarmer (Inspired) - সকল iFarmer দ্বারা সংরক্ষিত</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
